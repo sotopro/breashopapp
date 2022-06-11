@@ -8,7 +8,7 @@ const ProductsScreen = ({ navigation, route }) => {
     const filteredProducts = products.filter(item => item.categoryId === route.params.categoryId)
     const onHandlerSelectedProduct = (item) => {
         navigation.navigate('ProductDetail', { 
-            productId: item.id,
+            product: item,
             name: item.title
          })
     }
