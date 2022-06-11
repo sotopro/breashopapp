@@ -23,11 +23,14 @@ const MainNavigator = () => {
             <Stack.Screen 
                 name='Categories'
                 component={Categories}
-                options={{
-                    title: 'Mi pan',
-                }}
             />
-            <Stack.Screen name='Products' component={Products} />
+            <Stack.Screen 
+                name='Products'
+                component={Products} 
+                options={({ route }) => ({
+                    title: route.params.name,
+                })}    
+            />
             <Stack.Screen name='ProductDetail' component={ProductDetail} />
         </Stack.Navigator>
     )
