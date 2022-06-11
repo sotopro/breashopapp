@@ -2,7 +2,7 @@ import React from 'react'
 import { View, Text, Button } from 'react-native'
 import { styles } from './styles'
 
-const Products = ({ navigation }) => {
+const ProductsScreen = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <Text>Products</Text>
@@ -11,4 +11,4 @@ const Products = ({ navigation }) => {
     )
 }
 
-export default Products
+export default ProductsScreen

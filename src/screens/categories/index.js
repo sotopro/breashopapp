@@ -1,14 +1,25 @@
 import React from 'react'
-import { View, Text, Button } from 'react-native'
+import { View } from 'react-native'
+import { Categories } from '../../components/index'
+import { categories } from '../../constants/data/categories'
 import { styles } from './styles'
 
-const Categories = ({ navigation, route }) => {
+const CategoriesScreen = ({ navigation, route }) => {
+
+    const onHandlerSelectedCategory = (item) => {
+        navigation.navigate('Products', {
+            categoryId: item.id,
+            name: item.title
+        })
+    }
     return (
         <View style={styles.container}>
-            <Text>Categories</Text>
-            <Button title='Ir a productos'  onPress={() => navigation.navigate('Products')} />
+            <Categories 
+                data={categories}
+                onSelected={onHandlerSelectedCategory}
+            />
         </View>
     )
 }
 
-export default Categories
+export default CategoriesScreen
