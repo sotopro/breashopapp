@@ -4,6 +4,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from '@expo/vector-icons/Ionicons';
 import MainNavigator from "./main";
 import CartNavigator from "./cart";
+import OrdersNavigator from "./orders";
 import { colors } from "../constants/themes";
 
 const BottomTabs = createBottomTabNavigator();
@@ -40,6 +41,16 @@ const TabNavigator = () => {
                     tabBarLabel: ({ focused }) => LabelBottomTab(focused, 'Cart'),
                     tabBarIcon: ({ focused }) => (
                         <Ionicons name={ focused ? 'cart' : 'cart-outline'} size={20} color={focused ? colors.secondary : colors.primary} />
+                    ),
+                }}    
+            />
+             <BottomTabs.Screen 
+                name='OrdersTab' 
+                component={OrdersNavigator} 
+                options={{
+                    tabBarLabel: ({ focused }) => LabelBottomTab(focused, 'Orders'),
+                    tabBarIcon: ({ focused }) => (
+                        <Ionicons name={ focused ? 'file-tray-full' : 'file-tray-full-outline'} size={20} color={focused ? colors.secondary : colors.primary} />
                     ),
                 }}    
             />
