@@ -1,11 +1,9 @@
 import {createStore, combineReducers } from 'redux';
 
-import ProductReducer from './reducers/products.reducer';
-import CategoryReducer from './reducers/category.reducer';
-
+import {productsReducer, categoryReducer} from './reducers/index';
 const rootReducer = combineReducers({
-    products: ProductReducer,
-    category: CategoryReducer
+    products: productsReducer,
+    category: categoryReducer
 });
 
 export default createStore(rootReducer);
