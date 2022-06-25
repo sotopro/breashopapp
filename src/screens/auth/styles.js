@@ -18,12 +18,25 @@ export const styles = StyleSheet.create({
     backgroundColor: colors.white,
   },
   title: {
-    fontSize: 18,
+    fontSize: 16,
     fontFamily: "Lato-Bold",
     marginBottom: 12,
     textAlign: "center",
   },
+  label: {
+    fontSize: 14,
+    fontFamily: "Lato-Bold",
+    marginVertical: 10,
+  },
+  input: {
+    height: 40,
+    borderBottomColor: colors.primary,
+    borderBottomWidth: 1,
+    width: "90%",
+    fontFamily: "Lato-Regular",
+  },
   prompt: {
+    paddingVertical: 20,
     alignItems: "center",
   },
   promptMessage: {
@@ -38,7 +51,6 @@ export const styles = StyleSheet.create({
     textAlign: "center",
   },
   button: {
-    backgroundColor: colors.primary,
-    marginVertical: 20,
+    marginTop: 20,
   },
 });
