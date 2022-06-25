@@ -10,17 +10,20 @@ import {
 import { useDispatch } from "react-redux";
 import { colors } from "../../constants/themes";
 import { styles } from "./styles";
-import { signup } from "../../store/actions/index";
+import { signup, signin } from "../../store/actions/index";
 
 const Auth = () => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const title = "Register";
-  const message = "Do you have an account?";
-  const messageAction = "Log in";
-  const messageTarget = "login";
-  const buttonText = "Sign up";
+  const [isLogin, setIsLogin] = useState(true);
+  const title = isLogin ? "Login" : "Register";
+  const message = isLogin
+    ? "Don't you have an account?"
+    : "Do you have an account?";
+  const messageAction = isLogin ? "Sign up" : "Sign in";
+  const messageTarget = isLogin ? "register" : "login";
+  const buttonText = isLogin ? "Sign in" : "Sign up";
 
   const onChangeText = (text, type) => {
     if (type === "email") {
@@ -31,9 +34,15 @@ const Auth = () => {
   };
 
   const handlerSubmit = () => {
-    console.log({ email, password });
-    dispatch(signup(email, password));
+    dispatch(isLogin ? signin(email, password) : signup(email, password));
   };
+
+  const onChangeAuth = () => {
+    setPassword("");
+    setEmail("");
+    setIsLogin(!isLogin);
+  };
+
   return (
     <KeyboardAvoidingView style={styles.containerKeyboard} behavior="height">
       <View style={styles.container}>
@@ -69,7 +78,7 @@ const Auth = () => {
         </View>
         <View style={styles.prompt}>
           <Text style={styles.propmtMessage}>{message}</Text>
-          <TouchableOpacity onPress={() => console.log(messageTarget)}>
+          <TouchableOpacity onPress={() => onChangeAuth()}>
             <Text style={styles.propmtButton}>{messageAction}</Text>
           </TouchableOpacity>
         </View>
