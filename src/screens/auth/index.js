@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import {
   Text,
   View,
-  TextInput,
   TouchableOpacity,
   KeyboardAvoidingView,
   Button,
@@ -11,6 +10,7 @@ import { useDispatch } from "react-redux";
 import { colors } from "../../constants/themes";
 import { styles } from "./styles";
 import { signup, signin } from "../../store/actions/index";
+import { Input } from "../../components";
 
 const Auth = () => {
   const dispatch = useDispatch();
@@ -47,9 +47,9 @@ const Auth = () => {
     <KeyboardAvoidingView style={styles.containerKeyboard} behavior="height">
       <View style={styles.container}>
         <Text style={styles.title}>{title}</Text>
-        <Text style={styles.label}>Email</Text>
-        <TextInput
+        <Input
           style={styles.input}
+          label="Email"
           placeholder="Email address"
           placeholderTextColor={colors.gray}
           keyboardType="email-address"
@@ -58,9 +58,9 @@ const Auth = () => {
           value={email}
           onChangeText={(text) => onChangeText(text, "email")}
         />
-        <Text style={styles.label}>Password</Text>
-        <TextInput
+        <Input
           style={styles.input}
+          label="Password"
           placeholder="Password"
           placeholderTextColor={colors.gray}
           secureTextEntry
