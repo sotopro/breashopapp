@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useReducer } from "react";
 import {
   Text,
   View,
@@ -11,11 +11,37 @@ import { colors } from "../../constants/themes";
 import { styles } from "./styles";
 import { signup, signin } from "../../store/actions/index";
 import { Input } from "../../components";
+import { UPDATED_FORM, onInputChange } from "../../utils/forms";
+
+const initialState = {
+  email: { value: "", touched: false, hasError: true, error: "" },
+  password: { value: "", touched: false, hasError: true, error: "" },
+  isFormValid: false,
+};
+
+const formReducer = (state, action) => {
+  switch (action.type) {
+    case UPDATED_FORM:
+      const { name, value, hasError, error, touched, isFormValid } =
+        action.data;
+      return {
+        ...state,
+        [name]: {
+          ...state[name],
+          value,
+          hasError,
+          error,
+          touched,
+        },
+      };
+    default:
+      return state;
+  }
+};
 
 const Auth = () => {
   const dispatch = useDispatch();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [formState, dispatchFormState] = useReducer(formReducer, initialState);
   const [isLogin, setIsLogin] = useState(true);
   const title = isLogin ? "Login" : "Register";
   const message = isLogin
@@ -26,11 +52,7 @@ const Auth = () => {
   const buttonText = isLogin ? "Sign in" : "Sign up";
 
   const onChangeText = (text, type) => {
-    if (type === "email") {
-      setEmail(text);
-    } else {
-      setPassword(text);
-    }
+    onInputChange(type, text, dispatchFormState, formState);
   };
 
   const handlerSubmit = () => {
@@ -55,7 +77,7 @@ const Auth = () => {
           keyboardType="email-address"
           autoCapitalize="none"
           autoCorrect={false}
-          value={email}
+          value={formState.email.value}
           onChangeText={(text) => onChangeText(text, "email")}
         />
         <Input
@@ -66,7 +88,7 @@ const Auth = () => {
           secureTextEntry
           autoCapitalize="none"
           autoCorrect={false}
-          value={password}
+          value={formState.password.value}
           onChangeText={(text) => onChangeText(text, "password")}
         />
         <View style={styles.button}>
