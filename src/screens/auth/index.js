@@ -11,7 +11,7 @@ import { colors } from "../../constants/themes";
 import { styles } from "./styles";
 import { signup, signin } from "../../store/actions/index";
 import { Input } from "../../components";
-import { UPDATED_FORM, onInputChange } from "../../utils/forms";
+import { UPDATED_FORM, onInputChange, onFocusOut } from "../../utils/forms";
 
 const initialState = {
   email: { value: "", touched: false, hasError: true, error: "" },
@@ -55,6 +55,11 @@ const Auth = () => {
     onInputChange(type, text, dispatchFormState, formState);
   };
 
+  const onBlurInput = (text, type) => {
+    console.log(text);
+    onFocusOut(type, text, dispatchFormState, formState);
+  };
+
   const handlerSubmit = () => {
     dispatch(isLogin ? signin(email, password) : signup(email, password));
   };
@@ -64,6 +69,8 @@ const Auth = () => {
     setEmail("");
     setIsLogin(!isLogin);
   };
+
+  console.log({ formState });
 
   return (
     <KeyboardAvoidingView style={styles.containerKeyboard} behavior="height">
@@ -79,6 +86,10 @@ const Auth = () => {
           autoCorrect={false}
           value={formState.email.value}
           onChangeText={(text) => onChangeText(text, "email")}
+          onBlur={(text) => onBlurInput(text.nativeEvent.text, "email")}
+          hasError={formState.email.hasError}
+          error={formState.email.error}
+          touched={formState.email.touched}
         />
         <Input
           style={styles.input}
@@ -90,6 +101,10 @@ const Auth = () => {
           autoCorrect={false}
           value={formState.password.value}
           onChangeText={(text) => onChangeText(text, "password")}
+          onBlur={(text) => onBlurInput(text.nativeEvent.text, "password")}
+          hasError={formState.password.hasError}
+          error={formState.password.error}
+          touched={formState.password.touched}
         />
         <View style={styles.button}>
           <Button

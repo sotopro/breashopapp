@@ -12,6 +12,12 @@ export const styles = StyleSheet.create({
     width: "90%",
     fontFamily: "Lato-Regular",
   },
-  message: {},
-  helperText: {},
+  message: {
+    paddingVertical: 5,
+  },
+  helperText: {
+    fontFamily: "Lato-Bold",
+    fontSize: 14,
+    color: colors.error,
+  },
 });
